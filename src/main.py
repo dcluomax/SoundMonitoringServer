@@ -31,7 +31,12 @@ def process_audio(shared_time, shared_volume, lock):
         shared_time[index] = time.time()
         shared_volume[index] = np.abs(audio).max()
         lock.release()
-        index = (index + 1) % BUFFER_SIZE
+        if index >= BUFFER_SIZE-1:
+            index = BUFFER_SIZE-1
+            np.roll(shared_time, -1)
+            np.roll(shared_volume, -1)
+        else:
+            index = index + 1
         time.sleep(1)
     stream.stop_stream()
     stream.close()
