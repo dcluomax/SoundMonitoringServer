@@ -39,9 +39,9 @@
                 // add quite time calculation after draw
 
             }
-            $.get("http://localhost:8080/getdata", processData);
+            $.get("/getdata", processData);
             setInterval(function() {
-                $.get("http://localhost:8080/getdata", processData);
+                $.get("/getdata", processData);
             }, 2000);
 
         }
